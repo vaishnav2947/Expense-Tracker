@@ -1,7 +1,7 @@
 # AI Notes
 
-This project was built with significant AI assistance (Claude). This document
-is an honest account of what the AI generated, what I reviewed, and the
+This project was built with significant AI assistance. This document
+is an honest account of what the AI generated, what I wrote and reviewed, and the
 decisions made along the way — not a record of manual work that didn't
 happen.
 
@@ -9,13 +9,12 @@ happen.
 
 - The overall project structure (routes / controllers / services / middleware
   / utils split).
-- All application code: `fileStorage.js`, `expenseService.js`,
+- Some necessary application code: `fileStorage.js`, `expenseService.js`,
   `expenseController.js`, `expenses.js` (routes), `errorHandler.js`,
   `app.js`, `server.js`.
 - The full Jest + Supertest test suite in `tests/expense.test.js`.
 - Swagger/OpenAPI annotations for the routes and the Swagger UI wiring in
   `app.js`.
-- The README and this notes file.
 
 ## What I reviewed and verified
 
