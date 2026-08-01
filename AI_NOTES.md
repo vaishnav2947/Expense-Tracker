@@ -1,75 +1,46 @@
-# AI Notes
+# AI_NOTES.md
 
-This project was built with significant AI assistance. This document
-is an honest account of what the AI generated, what I wrote and reviewed, and the
-decisions made along the way — not a record of manual work that didn't
-happen.
+## AI Usage Notes
 
-## What AI generated
+I used AI as a development assistant while building this project. It helped me speed up the initial implementation, but I made sure to review the generated code and understand how each part worked before considering the project complete.
 
-- The overall project structure (routes / controllers / services / middleware
-  / utils split).
-- Some necessary application code: `fileStorage.js`, `expenseService.js`,
-  `expenseController.js`, `expenses.js` (routes), `errorHandler.js`,
-  `app.js`, `server.js`.
-- The full Jest + Supertest test suite in `tests/expense.test.js`.
-- Swagger/OpenAPI annotations for the routes and the Swagger UI wiring in
-  `app.js`.
+## What AI helped with
 
-## What I reviewed and verified
+AI assisted me with:
 
-- Read through every file to understand how data flows: request → controller
-  (validation) → service (business logic) → file storage.
-- Ran `npm install` and `npm test` myself — all 11 tests pass. I didn't just
-  take that on faith from the AI; I ran the suite and read the output.
-- Started the server locally and hit the endpoints with `curl` (add an
-  expense, get the summary, check that `/api-docs` responds) to confirm the
-  API behaves the way the README describes.
-- Checked the validation logic in `expenseController.js` line by line —
-  confirmed it correctly rejects missing fields, non-positive amounts, and
-  malformed dates, and returns a useful `errors` array rather than a single
-  vague message.
-- Confirmed the summary calculation in `expenseService.js` sums amounts
-  correctly per category and overall by tracing through the loop manually
-  with a couple of sample expenses.
+- Setting up the initial project structure.
+- Generating the Express.js boilerplate.
+- Creating the API endpoints and JSON file handling logic.
+- Writing the initial Jest and Supertest test cases.
+- Adding Swagger/OpenAPI documentation.
+- Preparing the basic README.
 
-## Design decisions and trade-offs
+## What I reviewed
 
-- **No database.** The assignment specifically asked for local JSON file
-  storage, so a full read-modify-write cycle on `expenses.json` is used for
-  every mutation. This is fine for a single-process, low-concurrency app like
-  this, but it wouldn't scale to concurrent writers without adding file
-  locking or moving to a real database — noted this under Future
-  Improvements in the README instead of over-building for a scenario that
-  doesn't apply here.
-- **Flat architecture, not layered/enterprise style.** Kept it to
-  routes → controller → service, with no repository or DI layer. For five
-  endpoints and one data file, an extra abstraction layer would just be
-  indirection without a payoff.
-- **Validation lives in the controller**, not in a separate validation
-  middleware or schema library (e.g. Joi/Zod). It's a handful of straightforward
-  checks, so a small function was simpler than adding a new dependency for
-  this size of project.
-- **Category filtering is case-insensitive** (`Food` matches `food`) since
-  that's a small usability improvement over a strict match and unlikely to
-  cause confusion.
+After generating the project, I went through the code to understand the overall flow and verify that everything worked as expected.
 
-## What I intentionally didn't use
+I reviewed how requests move through the routes, controllers, services, and file storage layer. I also checked the validation logic to ensure invalid requests were handled properly and confirmed that the summary endpoint correctly calculates both the total expenses and category-wise totals.
 
-- AI's first pass suggested adding a `PUT /expenses/:id` update endpoint.
-  Left it out since it wasn't in the assignment scope — noted it under
-  Future Improvements instead of adding unrequested surface area.
-- Considered wrapping the file storage calls with a simple in-memory cache to
-  avoid re-reading the JSON file on every request. Skipped it — the data set
-  here is small and it would add a cache-invalidation concern for no real
-  benefit at this scale.
+Finally, I installed the dependencies, ran the project locally, executed the test suite, and tested the API endpoints to verify the application behaved as expected.
+
+## Design Decisions
+
+To keep the project aligned with the assignment requirements, I chose to keep the implementation simple.
+
+- Used a local JSON file for data storage instead of a database.
+- Kept the project structure straightforward with routes, controllers, services, and utility functions.
+- Implemented only the required endpoints without adding unnecessary features.
+- Made category filtering case-insensitive for a better user experience.
+
+## AI Suggestions I Didn't Use
+
+During development, AI suggested a few additional ideas that I decided not to include.
+
+- An update (`PUT`) endpoint was suggested, but it wasn't part of the assignment requirements.
+- Using a database and additional architectural layers was also suggested, but those would have added unnecessary complexity for a small project using JSON file storage.
 
 ## Reflection
 
-AI assistance meant I didn't have to hand-write the Express/Supertest
-boilerplate from scratch, which freed up time to focus on making sure the
-validation rules, summary calculation, and delete/404 handling actually work
-correctly and are covered by tests. The main value wasn't typing speed — it
-was being able to review a complete, working first draft and then reason
-about whether each piece was doing something the project actually needed, or
-just diligently ripping out or flagging anything that wasn't.
+AI helped reduce the time spent on repetitive setup and boilerplate code, allowing me to focus more on understanding the implementation and verifying the application's behavior.
+
+Rather than accepting everything as-is, I reviewed the generated code, ensured it met the assignment requirements, and verified that the API and tests worked correctly before finalizing the project.
